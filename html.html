@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name | Portfolio</title>
+  <meta name="description" content="Personal portfolio of Your Name – web developer and designer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <a href="#home" class="logo">YN<span>.</span></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text reveal">
+          <p class="eyebrow">Hello, I'm</p>
+          <h1>Your Name</h1>
+          <h2>I'm a <span id="typed" class="typed"></span><span class="cursor">|</span></h2>
+          <p class="lead">I build fast, accessible and beautiful websites that help people and businesses grow online.</p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-ghost">Contact Me</a>
+          </div>
+          <div class="socials">
+            <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="avatar">
+            <span>YN</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title reveal">About Me</h2>
+        <div class="about-grid">
+          <div class="reveal">
+            <p>
+              I'm a passionate web developer with a love for clean code and thoughtful design.
+              I enjoy turning ideas into real products – from small landing pages to full web apps.
+            </p>
+            <p>
+              When I'm not coding, you'll find me exploring new technologies, reading,
+              or working on side projects. I'm always open to learning and new opportunities.
+            </p>
+          </div>
+          <div class="stats reveal">
+            <div class="stat"><strong data-count="3">0</strong><span>Years Experience</span></div>
+            <div class="stat"><strong data-count="25">0</strong><span>Projects Done</span></div>
+            <div class="stat"><strong data-count="15">0</strong><span>Happy Clients</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section alt">
+      <div class="container">
+        <h2 class="section-title reveal">My Skills</h2>
+        <div class="skills">
+          <div class="skill reveal">
+            <div class="skill-head"><span>HTML</span><span>90%</span></div>
+            <div class="bar"><div class="fill" data-width="90"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-head"><span>CSS</span><span>85%</span></div>
+            <div class="bar"><div class="fill" data-width="85"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-head"><span>JavaScript</span><span>80%</span></div>
+            <div class="bar"><div class="fill" data-width="80"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-head"><span>React</span><span>70%</span></div>
+            <div class="bar"><div class="fill" data-width="70"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-head"><span>Git &amp; GitHub</span><span>75%</span></div>
+            <div class="bar"><div class="fill" data-width="75"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section-title reveal">Projects</h2>
+        <div class="filters reveal">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="web">Web</button>
+          <button class="filter" data-filter="app">Apps</button>
+          <button class="filter" data-filter="design">Design</button>
+        </div>
+        <div class="projects">
+          <article class="card reveal" data-category="web">
+            <div class="thumb t1">🌐</div>
+            <div class="card-body">
+              <h3>Business Website</h3>
+              <p>A responsive marketing website with smooth animations and SEO-friendly structure.</p>
+              <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              <div class="links"><a href="#" >Live Demo</a><a href="#">Source</a></div>
+            </div>
+          </article>
+          <article class="card reveal" data-category="app">
+            <div class="thumb t2">✅</div>
+            <div class="card-body">
+              <h3>Task Manager</h3>
+              <p>A to-do application with local storage, filters and drag-and-drop ordering.</p>
+              <div class="tags"><span>JavaScript</span><span>LocalStorage</span></div>
+              <div class="links"><a href="#">Live Demo</a><a href="#">Source</a></div>
+            </div>
+          </article>
+          <article class="card reveal" data-category="app">
+            <div class="thumb t3">🌤️</div>
+            <div class="card-body">
+              <h3>Weather Dashboard</h3>
+              <p>Search any city and see live weather and a 5-day forecast using a public API.</p>
+              <div class="tags"><span>API</span><span>Fetch</span><span>CSS</span></div>
+              <div class="links"><a href="#">Live Demo</a><a href="#">Source</a></div>
+            </div>
+          </article>
+          <article class="card reveal" data-category="design">
+            <div class="thumb t4">🎨</div>
+            <div class="card-body">
+              <h3>Brand Identity</h3>
+              <p>Logo, colour palette and UI kit designed for a small startup.</p>
+              <div class="tags"><span>Figma</span><span>Branding</span></div>
+              <div class="links"><a href="#">Case Study</a></div>
+            </div>
+          </article>
+          <article class="card reveal" data-category="web">
+            <div class="thumb t5">🛒</div>
+            <div class="card-body">
+              <h3>E-commerce UI</h3>
+              <p>A modern storefront front-end with cart, product filters and checkout flow.</p>
+              <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              <div class="links"><a href="#">Live Demo</a><a href="#">Source</a></div>
+            </div>
+          </article>
+          <article class="card reveal" data-category="design">
+            <div class="thumb t6">📱</div>
+            <div class="card-body">
+              <h3>Mobile App Design</h3>
+              <p>End-to-end UX design for a fitness tracking app, from wireframes to prototype.</p>
+              <div class="tags"><span>UI/UX</span><span>Figma</span></div>
+              <div class="links"><a href="#">Case Study</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section alt">
+      <div class="container narrow">
+        <h2 class="section-title reveal">Get In Touch</h2>
+        <p class="center reveal">Have a project in mind or just want to say hi? Send me a message.</p>
+        <form id="contactForm" class="form reveal" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="How can I help you?" required></textarea>
+            <small class="error"></small>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <p class="form-status" id="formStatus" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Your Name. All rights reserved.</p>
+  </footer>
+
+  <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>

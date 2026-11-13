@@ -1,0 +1,169 @@
+// ---------- Helpers ----------
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+// ---------- Theme toggle (remembers choice) ----------
+const themeToggle = $("#themeToggle");
+const savedTheme = localStorage.getItem("theme");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+  localStorage.setItem("theme", theme);
+}
+setTheme(savedTheme || (prefersDark ? "dark" : "light"));
+themeToggle.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  setTheme(current === "dark" ? "light" : "dark");
+});
+
+// ---------- Mobile menu ----------
+const menuBtn = $("#menuBtn");
+const navLinks = $("#navLinks");
+menuBtn.addEventListener("click", () => navLinks.classList.toggle("open"));
+$$("#navLinks a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("open")));
+
+// ---------- Navbar shadow, active link, back-to-top ----------
+const navbar = $("#navbar");
+const toTop = $("#toTop");
+const sections = $$("main section[id]");
+
+function onScroll() {
+  navbar.classList.toggle("scrolled", window.scrollY > 20);
+  toTop.classList.toggle("show", window.scrollY > 500);
+
+  const pos = window.scrollY + 120;
+  sections.forEach(sec => {
+    const link = $(`#navLinks a[href="#${sec.id}"]`);
+    if (!link) return;
+    const active = pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight;
+    link.classList.toggle("active", active);
+  });
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+// ---------- Typing effect ----------
+const roles = ["Web Developer", "UI Designer", "Freelancer", "Problem Solver"];
+const typedEl = $("#typed");
+let roleIdx = 0, charIdx = 0, deleting = false;
+
+function type() {
+  const word = roles[roleIdx];
+  typedEl.textContent = word.slice(0, charIdx);
+
+  if (!deleting && charIdx < word.length) {
+    charIdx++;
+    setTimeout(type, 100);
+  } else if (!deleting) {
+    deleting = true;
+    setTimeout(type, 1400);
+  } else if (charIdx > 0) {
+    charIdx--;
+    setTimeout(type, 50);
+  } else {
+    deleting = false;
+    roleIdx = (roleIdx + 1) % roles.length;
+    setTimeout(type, 300);
+  }
+}
+type();
+
+// ---------- Scroll reveal + skill bars + counters ----------
+function animateCount(el) {
+  const target = +el.dataset.count;
+  const duration = 1200;
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    el.textContent = Math.round(p * target);
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target + "+";
+  }
+  requestAnimationFrame(tick);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    el.classList.add("visible");
+
+    $$(".fill", el).forEach(f => (f.style.width = f.dataset.width + "%"));
+    $$("[data-count]", el).forEach(animateCount);
+
+    observer.unobserve(el);
+  });
+}, { threshold: 0.15 });
+
+$$(".reveal").forEach(el => observer.observe(el));
+
+// ---------- Project filters ----------
+const filterBtns = $$(".filter");
+const cards = $$(".card");
+
+filterBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const filter = btn.dataset.filter;
+    cards.forEach(card => {
+      const show = filter === "all" || card.dataset.category === filter;
+      card.classList.toggle("hide", !show);
+    });
+  });
+});
+
+// ---------- Contact form validation ----------
+const form = $("#contactForm");
+const status = $("#formStatus");
+
+function validateField(input) {
+  const field = input.closest(".field");
+  const errorEl = $(".error", field);
+  let msg = "";
+
+  if (!input.value.trim()) {
+    msg = "This field is required.";
+  } else if (input.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+    msg = "Please enter a valid email address.";
+  } else if (input.name === "message" && input.value.trim().length < 10) {
+    msg = "Message should be at least 10 characters.";
+  }
+
+  field.classList.toggle("invalid", !!msg);
+  errorEl.textContent = msg;
+  return !msg;
+}
+
+$$("input, textarea", form).forEach(input => {
+  input.addEventListener("blur", () => validateField(input));
+  input.addEventListener("input", () => {
+    if (input.closest(".field").classList.contains("invalid")) validateField(input);
+  });
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const valid = $$("input, textarea", form).map(validateField).every(Boolean);
+  if (!valid) {
+    status.textContent = "";
+    return;
+  }
+
+  // Opens the visitor's email app with the message pre-filled.
+  // Replace with your email, or swap for Formspree / EmailJS for real form handling.
+  const YOUR_EMAIL = "you@example.com";
+  const name = encodeURIComponent($("#name").value.trim());
+  const email = $("#email").value.trim();
+  const body = encodeURIComponent(`${$("#message").value.trim()}\n\n– ${$("#name").value.trim()} (${email})`);
+  window.location.href = `mailto:${YOUR_EMAIL}?subject=Portfolio message from ${name}&body=${body}`;
+
+  status.textContent = "Thanks! Your email app should open now.";
+  form.reset();
+});
+
+// ---------- Footer year ----------
+$("#year").textContent = new Date().getFullYear();
